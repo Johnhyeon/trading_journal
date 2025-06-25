@@ -121,6 +121,34 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(`leverage-${slot}`).value = leverageAndPositionText;
     }
 
+    /**
+     * 클립보드에 텍스트를 복사하는 함수
+     * @param {string} text - 복사할 텍스트
+     */
+    async function copyToClipboard(text) {
+        try {
+            await navigator.clipboard.writeText(text);
+            alert('매매일지가 클립보드에 복사되었습니다!');
+        } catch (err) {
+            console.error('클립보드 복사 실패:', err);
+            alert('클립보드 복사에 실패했습니다.');
+        }
+    }
+
+    /**
+     * 텍스트를 .txt 파일로 다운로드하는 함수
+     * @param {string} text - 다운로드할 텍스트
+     * @param {string} filename - 저장할 파일 이름
+     */
+    function downloadAsTextFile(text, filename) {
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(a.href);
+    }
+
     function saveJournalAsTextFile() {
         const dateValue = document.getElementById('trade-date').value;
         if (!dateValue) {
@@ -201,11 +229,17 @@ ${review}
 ✍️ 오늘의 최종 잔고: ${finalBalance.toFixed(2)} USDT
 `;
         
-        const blob = new Blob([fileContent.trim()], { type: 'text/plain;charset=utf-8' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `매매일지-${dateValue}.txt`;
-        a.click();
-        URL.revokeObjectURL(a.href);
+        // --- 기기 종류에 따라 다른 동작 수행 ---
+        const isMobile = /Mobi/i.test(navigator.userAgent);
+        const contentToSave = fileContent.trim();
+
+        if (isMobile) {
+            // 모바일이면 클립보드에 복사
+            copyToClipboard(contentToSave);
+        } else {
+            // 데스크톱이면 파일로 다운로드
+            const filename = `매매일지-${dateValue}.txt`;
+            downloadAsTextFile(contentToSave, filename);
+        }
     }
 });
