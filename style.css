@@ -232,10 +232,9 @@ select.position-select {
         width: 100%;
         flex-basis: 100%; 
         margin-bottom: 15px; 
-
-    .upload-area {
-    overflow: hidden;  
-    word-break: break-all; 
     }
+    .upload-area {
+    overflow: hidden;      /* 영역을 벗어나는 내용은 보이지 않게 숨김 */
+    word-break: break-all; /* 파일명 등 긴 텍스트를 강제로 줄바꿈 처리 */
     }
 }
