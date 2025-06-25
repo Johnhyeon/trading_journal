@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const fieldsContainer = document.getElementById(`trade-fields-${slot}`);
         const isChecked = event.target.checked;
 
-        // 모든 자식 입력 요소들을 찾음
         const inputs = fieldsContainer.querySelectorAll('input, select, textarea');
         
         if (isChecked) {
@@ -45,11 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const statusDiv = document.getElementById(`status-${slot}`);
         const imageFile = event.target.files[0];
 
-        // 잔고 사용률 계산을 위해 시작 잔고가 입력되었는지 먼저 확인
         const initialBalance = parseFloat(document.getElementById('initial-balance').value);
         if (!initialBalance || initialBalance <= 0) {
             alert('잔고 사용률 계산을 위해 시작 잔고를 먼저 입력해주세요.');
-            // 업로드 취소
             event.target.value = ''; 
             return;
         }
@@ -98,9 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(`pnl-ratio-${slot}`).value = data.pnlRatio;
         document.getElementById(`realized-pnl-${slot}`).value = data.realizedPnl;
         
-        // --- 잔고 사용률 계산 및 포매팅 로직 ---
-        let leverageAndPositionText = data.leverage; // 기본값
-
+        let leverageAndPositionText = data.leverage;
         const initialBalance = parseFloat(document.getElementById('initial-balance').value);
 
         if (data.leverage && data.filled && initialBalance > 0) {
@@ -108,12 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const filledValue = parseFloat(data.filled);
 
             if (leverageValue && filledValue && leverageValue !== 0) {
-                // 비중(포지션 사이즈) 계산
                 const positionSize = filledValue / leverageValue;
-                // 잔고 사용률(%) 계산
                 const balanceUsageRate = (positionSize / initialBalance) * 100;
-                
-                // 최종 양식으로 텍스트 조합
                 leverageAndPositionText = `${data.leverage}/${balanceUsageRate.toFixed(0)}% (${positionSize.toFixed(0)} USDT)`;
             }
         }
@@ -121,10 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(`leverage-${slot}`).value = leverageAndPositionText;
     }
 
-    /**
-     * 클립보드에 텍스트를 복사하는 함수
-     * @param {string} text - 복사할 텍스트
-     */
     async function copyToClipboard(text) {
         try {
             await navigator.clipboard.writeText(text);
@@ -135,11 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /**
-     * 텍스트를 .txt 파일로 다운로드하는 함수
-     * @param {string} text - 다운로드할 텍스트
-     * @param {string} filename - 저장할 파일 이름
-     */
     function downloadAsTextFile(text, filename) {
         const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
         const a = document.createElement('a');
@@ -167,18 +149,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // --- 계산을 위한 변수 초기화 (pnlRatio 합산 변수 추가) ---
         let totalRealizedPnl = 0;
+        let totalPnlRatioSum = 0;
+        // ---------------------------------------------------------
+        
         let fileContent = `📅 날짜: ${formattedDate}\n· 잔고: ${initialBalance.toFixed(2)} USDT\n`;
 
         for (let i = 1; i <= 3; i++) {
-            // '매매 없음' 체크박스 확인
             if (document.getElementById(`no-trade-${i}`).checked) {
                 fileContent += `\n✅ ${i}차 매매\n· 없음\n`;
-                continue; // 다음 루프로 넘어감
+                continue;
             }
 
             const coin = document.getElementById(`coin-${i}`).value;
-            // 코인 이름이 없으면 해당 매매는 기록하지 않음
             if (!coin) continue;
 
             const position = document.getElementById(`position-${i}`).value;
@@ -188,7 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             const coinPosition = `${coin}/${position}`;
-
             const entryTime = document.getElementById(`entry-time-${i}`).value;
             const leverage = document.getElementById(`leverage-${i}`).value;
             const entryReason = document.getElementById(`entry-reason-${i}`).value;
@@ -198,13 +181,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const realizedPnlStr = document.getElementById(`realized-pnl-${i}`).value;
             const review = document.getElementById(`review-${i}`).value;
 
+            // --- 계산 로직 (pnlRatio 합산 추가) ---
             const realizedPnlValue = parseFloat(realizedPnlStr.replace('USDT', '')) || 0;
             totalRealizedPnl += realizedPnlValue;
+            
+            const pnlRatioValue = parseFloat(pnlRatio.replace('%', '')) || 0;
+            totalPnlRatioSum += pnlRatioValue;
+            // ------------------------------------
 
             const sltpLine = `${tp || 0}%/${sl ? -sl : 0}%`;
 
             fileContent += `
-✅ [${i}차 매매]
+✅ ${i}차 매매
 · 진입시간: ${entryTime}
 
 · 진입코인/포지션: ${coinPosition}
@@ -216,28 +204,29 @@ ${entryReason}
 · 익절/손절라인: ${sltpLine}
 
 · 결과: ${pnlRatio} (${realizedPnlStr})
+
 · 복기:
 ${review}
 `;
         }
 
-        const totalPnlRatio = initialBalance > 0 ? (totalRealizedPnl / initialBalance * 100).toFixed(2) : 0;
+        // --- 최종 요약본 계산 및 생성 (양식 수정) ---
+        const totalAccountPnlRatio = initialBalance > 0 ? (totalRealizedPnl / initialBalance * 100).toFixed(2) : 0;
         const finalBalance = initialBalance + totalRealizedPnl;
 
         fileContent += `
-✍️ 오늘의 총 수익률: ${totalPnlRatio}% (${totalRealizedPnl.toFixed(2)} USDT)
+✍️ 오늘의 수익률: ${totalPnlRatioSum.toFixed(2)}% (${totalRealizedPnl.toFixed(2)} USDT)
+✍️ 오늘의 총 수익률: ${totalAccountPnlRatio}%
 ✍️ 오늘의 최종 잔고: ${finalBalance.toFixed(2)} USDT
 `;
+        // ---------------------------------------------
         
-        // --- 기기 종류에 따라 다른 동작 수행 ---
         const isMobile = /Mobi/i.test(navigator.userAgent);
         const contentToSave = fileContent.trim();
 
         if (isMobile) {
-            // 모바일이면 클립보드에 복사
             copyToClipboard(contentToSave);
         } else {
-            // 데스크톱이면 파일로 다운로드
             const filename = `매매일지-${dateValue}.txt`;
             downloadAsTextFile(contentToSave, filename);
         }
