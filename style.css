@@ -126,3 +126,100 @@ input:read-only {
 .save-button:hover {
     background-color: #1558b3;
 }
+
+.coin-position-group {
+    justify-content: flex-start;
+}
+
+.coin-position-group input[type="text"] {
+    width: 200px;
+    flex-grow: 0;
+}
+
+select.position-select {
+    flex-grow: 0; 
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: white;
+}
+
+select.position-select:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"] {
+    width: 100%;
+}
+
+.no-trade-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+}
+.no-trade-group label {
+    margin-bottom: 0;
+    cursor: pointer;
+    font-weight: 700;
+    color: #495057;
+}
+input[type="checkbox"].no-trade-checkbox {
+    width: auto;
+    cursor: pointer;
+}
+
+.trade-fields-container.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+
+.coin-position-group {
+    justify-content: flex-start;
+}
+
+.coin-position-group input[type="text"] {
+    width: 200px;
+    flex-grow: 0;
+}
+/
+select.position-select {
+    flex-grow: 0; 
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: white;
+}
+
+select.position-select:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"] {
+    width: 100%;
+}
+
+.upload-area {
+    padding: 15px;
+    border: 1px dashed #d0d0d0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.status {
+    margin-top: 10px;
+    font-weight: 500;
+    color: #1a73e8;
+}
