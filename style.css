@@ -232,5 +232,10 @@ select.position-select {
         width: 100%;
         flex-basis: 100%; 
         margin-bottom: 15px; 
+
+    .upload-area {
+    overflow: hidden;  
+    word-break: break-all; 
+    }
     }
 }
