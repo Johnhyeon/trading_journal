@@ -1,11 +1,9 @@
-/* =================================================== */
-/* 1. 기본 설정 및 Box-sizing 초기화 (횡 스크롤 문제 해결) */
-/* =================================================== */
+
 html {
   box-sizing: border-box;
 }
 *, *:before, *:after {
-  box-sizing: inherit; /* 모든 요소가 테두리와 패딩을 너비에 포함하도록 설정 */
+  box-sizing: inherit;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
@@ -68,7 +66,7 @@ header h1 {
     display: flex;
     gap: 15px;
     align-items: center;
-    flex-wrap: wrap; /* 기본적으로 줄바꿈 허용 */
+    flex-wrap: wrap; 
     margin-bottom: 20px;
 }
 
@@ -151,30 +149,25 @@ input[type="checkbox"].no-trade-checkbox {
     cursor: pointer;
 }
 
-/* 체크박스 선택 시 입력 필드 비활성화 스타일 */
 .trade-fields-container.disabled {
     opacity: 0.5;
-    pointer-events: none; /* 클릭 등 모든 마우스 이벤트 비활성화 */
+    pointer-events: none; 
 }
 
-/* '진입코인'과 '포지션' 그룹의 레이아웃을 정밀하게 조정 */
 .coin-position-group {
-    justify-content: flex-start; /* 요소들을 왼쪽부터 정렬 */
+    justify-content: flex-start;
 }
 
-/* '진입코인' 입력창의 너비를 지정하고, 늘어나지 않도록 설정 */
 .coin-position-group input[type="text"] {
     width: 200px; 
     flex-grow: 0; 
 }
 
-/* '포지션' 선택 메뉴가 늘어나지 않도록 설정 */
 select.position-select {
     flex-grow: 0; 
     background-color: white;
 }
 
-/* 다른 입력창들은 너비 100% 유지 */
 .form-group input[type="text"],
 .form-group input[type="number"] {
     width: 100%;
@@ -193,8 +186,6 @@ select.position-select {
     color: #1a73e8;
 }
 
-/* style.css 파일의 @media 블록 바로 위에 추가 */
-
 /* =================================================== */
 /* 사용방법 안내 (How-to Guide) 스타일 */
 /* =================================================== */
@@ -211,7 +202,6 @@ select.position-select {
   color: #1a73e8;
   cursor: pointer;
   outline: none;
-  /* 브라우저 기본 화살표(marker) 숨기기 */
   list-style: none;
 }
 .how-to-guide summary::-webkit-details-marker {
@@ -237,19 +227,16 @@ select.position-select {
 }
 
 .how-to-guide .guide-content img {
-  max-width: 100%; /* 이미지가 부모 요소를 넘어가지 않도록 함 */
-  border-radius: 8px; /* 테두리를 둥글게 */
-  border: 1px solid #ddd; /* 얇은 테두리 추가 */
-  margin-top: 10px; /* 위쪽 설명과의 간격 */
+  display: block;         
+  max-width: 100%;      
+  height: auto;         
+  margin-top: 10px;       
+  border-radius: 8px;    
+  border: 1px solid #ddd; 
 }
 
-/* =================================================== */
-/* 3. 모바일 반응형 스타일 (Media Query) */
-/* 화면 너비가 768px 이하일 때 적용됩니다. */
-/* =================================================== */
 @media (max-width: 768px) {
 
-    /* 횡 스크롤 강제 숨김 (최후의 수단) */
     body {
         overflow-x: hidden;
         padding: 10px;
@@ -259,7 +246,6 @@ select.position-select {
         padding: 15px;
     }
     
-    /* 폰트 크기 조정 (제목 제외) */
     .card h2 { font-size: 20px; }
     .card h3 { font-size: 18px; }
 
@@ -274,7 +260,6 @@ select.position-select {
         font-size: 15px;
     }
 
-    /* '진입코인' 그룹 레이아웃 재정의 */
     .coin-position-group {
         flex-wrap: wrap; 
     }
@@ -284,7 +269,7 @@ select.position-select {
         margin-bottom: 15px; 
     }
     .upload-area {
-    overflow: hidden;      /* 영역을 벗어나는 내용은 보이지 않게 숨김 */
-    word-break: break-all; /* 파일명 등 긴 텍스트를 강제로 줄바꿈 처리 */
+    overflow: hidden;   
+    word-break: break-all;
     }
 }
