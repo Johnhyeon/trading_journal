@@ -1,3 +1,13 @@
+/* =================================================== */
+/* 1. 기본 설정 및 Box-sizing 초기화 (횡 스크롤 문제 해결) */
+/* =================================================== */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit; /* 모든 요소가 테두리와 패딩을 너비에 포함하도록 설정 */
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
 
 body {
@@ -9,6 +19,9 @@ body {
     padding: 20px;
 }
 
+/* =================================================== */
+/* 2. 데스크톱 기본 스타일 */
+/* =================================================== */
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -28,6 +41,7 @@ header {
 header h1 {
     color: #1a73e8;
     margin: 0;
+    font-size: 32px;
 }
 
 .card {
@@ -46,14 +60,6 @@ header h1 {
     margin-bottom: 20px;
 }
 
-/* Status message style */
-#status {
-    margin-top: 15px;
-    font-weight: 500;
-    color: #1a73e8;
-    text-align: center;
-}
-
 .form-group {
     margin-bottom: 20px;
 }
@@ -62,8 +68,8 @@ header h1 {
     display: flex;
     gap: 15px;
     align-items: center;
+    flex-wrap: wrap; /* 기본적으로 줄바꿈 허용 */
     margin-bottom: 20px;
-    flex-wrap: wrap;
 }
 
 .form-group label, .form-group-inline label {
@@ -71,17 +77,17 @@ header h1 {
     font-weight: 500;
     margin-bottom: 8px;
     color: #495057;
+    font-size: 16px;
 }
 
 input[type="text"],
 input[type="number"],
 input[type="date"],
+select,
 textarea {
-    width: 100%;
     padding: 12px;
     border: 1px solid #ced4da;
     border-radius: 6px;
-    box-sizing: border-box;
     font-size: 16px;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -92,9 +98,10 @@ input[type="file"] {
 
 textarea {
     resize: vertical;
+    width: 100%;
 }
 
-input:focus, textarea:focus {
+input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: #1a73e8;
     box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
@@ -103,10 +110,6 @@ input:focus, textarea:focus {
 input:read-only {
     background-color: #e9ecef;
     cursor: not-allowed;
-}
-
-.form-group-inline input {
-    flex: 1;
 }
 
 .save-button {
@@ -127,35 +130,7 @@ input:read-only {
     background-color: #1558b3;
 }
 
-.coin-position-group {
-    justify-content: flex-start;
-}
-
-.coin-position-group input[type="text"] {
-    width: 200px;
-    flex-grow: 0;
-}
-
-select.position-select {
-    flex-grow: 0; 
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 6px;
-    font-size: 16px;
-    background-color: white;
-}
-
-select.position-select:focus {
-    outline: none;
-    border-color: #1a73e8;
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
-}
-
-.form-group input[type="text"],
-.form-group input[type="number"] {
-    width: 100%;
-}
-
+/* '매매 없음' 체크박스 스타일 */
 .no-trade-group {
     display: flex;
     align-items: center;
@@ -176,36 +151,30 @@ input[type="checkbox"].no-trade-checkbox {
     cursor: pointer;
 }
 
+/* 체크박스 선택 시 입력 필드 비활성화 스타일 */
 .trade-fields-container.disabled {
     opacity: 0.5;
-    pointer-events: none;
+    pointer-events: none; /* 클릭 등 모든 마우스 이벤트 비활성화 */
 }
 
-
+/* '진입코인'과 '포지션' 그룹의 레이아웃을 정밀하게 조정 */
 .coin-position-group {
-    justify-content: flex-start;
+    justify-content: flex-start; /* 요소들을 왼쪽부터 정렬 */
 }
 
+/* '진입코인' 입력창의 너비를 지정하고, 늘어나지 않도록 설정 */
 .coin-position-group input[type="text"] {
-    width: 200px;
-    flex-grow: 0;
+    width: 200px; 
+    flex-grow: 0; 
 }
-/
+
+/* '포지션' 선택 메뉴가 늘어나지 않도록 설정 */
 select.position-select {
     flex-grow: 0; 
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 6px;
-    font-size: 16px;
     background-color: white;
 }
 
-select.position-select:focus {
-    outline: none;
-    border-color: #1a73e8;
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
-}
-
+/* 다른 입력창들은 너비 100% 유지 */
 .form-group input[type="text"],
 .form-group input[type="number"] {
     width: 100%;
@@ -224,27 +193,44 @@ select.position-select:focus {
     color: #1a73e8;
 }
 
+/* =================================================== */
+/* 3. 모바일 반응형 스타일 (Media Query) */
+/* 화면 너비가 768px 이하일 때 적용됩니다. */
+/* =================================================== */
 @media (max-width: 768px) {
 
+    /* 횡 스크롤 강제 숨김 (최후의 수단) */
     body {
+        overflow-x: hidden;
         padding: 10px;
     }
 
     .container {
         padding: 15px;
     }
+    
+    /* 폰트 크기 조정 (제목 제외) */
+    .card h2 { font-size: 20px; }
+    .card h3 { font-size: 18px; }
 
-    header h1 {
-        font-size: 28px;
+    .form-group label, 
+    .form-group-inline label,
+    .no-trade-group label,
+    p {
+        font-size: 14px;
     }
 
+    input, select, textarea {
+        font-size: 15px;
+    }
+
+    /* '진입코인' 그룹 레이아웃 재정의 */
     .coin-position-group {
-        flex-wrap: wrap;
+        flex-wrap: wrap; 
     }
-
     .coin-position-group input[type="text"] {
         width: 100%;
-        flex-basis: 100%;
-        margin-bottom: 15px;
+        flex-basis: 100%; 
+        margin-bottom: 15px; 
     }
 }
