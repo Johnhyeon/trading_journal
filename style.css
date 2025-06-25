@@ -210,8 +210,8 @@ select.position-select {
     }
     
     /* 폰트 크기 조정 (제목 제외) */
-    .card h2 { font-size: 18px; }
-    .card h3 { font-size: 16px; }
+    .card h2 { font-size: 20px; }
+    .card h3 { font-size: 18px; }
 
     .form-group label, 
     .form-group-inline label,
