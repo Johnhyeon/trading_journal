@@ -216,7 +216,7 @@ ${review}
 
         fileContent += `
 ✍️ 오늘의 수익률: ${totalPnlRatioSum.toFixed(2)}% (${totalRealizedPnl.toFixed(2)} USDT)
-✍️ 오늘의 총 수익률: ${totalAccountPnlRatio}%
+✍️ 오늘의 총(계좌) 수익률: ${totalAccountPnlRatio}%
 ✍️ 오늘의 최종 잔고: ${finalBalance.toFixed(2)} USDT
 `;
         // ---------------------------------------------
