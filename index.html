@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>코인 매매일지 (수동 선택 버전)</title>
+    <title>코인 매매일지</title>
     <link rel="stylesheet" href="style.css">
     <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js' defer></script>
 </head>
@@ -29,139 +29,157 @@
 
                 <section class="card trade-log">
                     <h3>✅ 1차 매매</h3>
-                    <div class="upload-area">
-                        <input type="file" class="trade-image-upload" data-slot="1" accept="image/*">
-                        <div class="status" id="status-1"></div>
+                    <div class="form-group no-trade-group">
+                        <input type="checkbox" class="no-trade-checkbox" id="no-trade-1" data-slot="1">
+                        <label for="no-trade-1">매매 없음</label>
                     </div>
-                    <div class="form-group">
-                        <label>· 진입시간:</label>
-                        <input type="text" id="entry-time-1" placeholder="자동 입력">
-                    </div>
-                    <div class="form-group-inline">
-                        <label>· 진입코인:</label>
-                        <input type="text" id="coin-1" placeholder="자동 입력" style="flex-grow: 2;">
-                        <label>· 포지션:</label>
-                        <select id="position-1" class="position-select">
-                            <option value="">선택</option>
-                            <option value="롱">롱</option>
-                            <option value="숏">숏</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>· 레버리지/비중:</label>
-                        <input type="text" id="leverage-1" placeholder="자동 입력 / 수동 입력">
-                    </div>
-                    <div class="form-group">
-                        <label>· 진입 근거:</label>
-                        <textarea id="entry-reason-1" rows="3">- 볼린저밴드 상태: 
+                    <div class="trade-fields-container" id="trade-fields-1">
+                        <div class="upload-area">
+                            <input type="file" class="trade-image-upload" data-slot="1" accept="image/*">
+                            <div class="status" id="status-1"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>· 진입시간:</label>
+                            <input type="text" id="entry-time-1" placeholder="자동 입력">
+                        </div>
+                        <div class="form-group-inline coin-position-group">
+                            <label>· 진입코인:</label>
+                            <input type="text" id="coin-1" placeholder="자동 입력">
+                            <label>· 포지션:</label>
+                            <select id="position-1" class="position-select">
+                                <option value="">선택</option>
+                                <option value="롱">롱</option>
+                                <option value="숏">숏</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>· 레버리지/비중:</label>
+                            <input type="text" id="leverage-1" placeholder="자동 입력 / 수동 입력">
+                        </div>
+                        <div class="form-group">
+                            <label>· 진입 근거:</label>
+                            <textarea id="entry-reason-1" rows="3">- 볼린저밴드 상태: 
 - RSI 지수: </textarea>
-                    </div>
-                    <div class="form-group-inline">
-                        <label>· 익절(%):</label>
-                        <input type="number" id="tp-1" placeholder="예: 10">
-                        <label>· 손절(%):</label>
-                        <input type="number" id="sl-1" placeholder="예: 5">
-                    </div>
-                    <div class="form-group-inline">
-                        <label>· 결과:</label>
-                        <input type="text" id="pnl-ratio-1" placeholder="%" readonly>
-                        <input type="text" id="realized-pnl-1" placeholder="USDT" readonly>
-                    </div>
-                     <div class="form-group">
-                        <label>· 복기:</label>
-                        <textarea id="review-1" rows="3"></textarea>
+                        </div>
+                        <div class="form-group-inline">
+                            <label>· 익절(%):</label>
+                            <input type="number" id="tp-1" placeholder="예: 10">
+                            <label>· 손절(%):</label>
+                            <input type="number" id="sl-1" placeholder="예: 5">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>· 결과:</label>
+                            <input type="text" id="pnl-ratio-1" placeholder="%" readonly>
+                            <input type="text" id="realized-pnl-1" placeholder="USDT" readonly>
+                        </div>
+                         <div class="form-group">
+                            <label>· 복기:</label>
+                            <textarea id="review-1" rows="3"></textarea>
+                        </div>
                     </div>
                 </section>
 
                 <section class="card trade-log">
                     <h3>✅ 2차 매매</h3>
-                     <div class="upload-area">
-                        <input type="file" class="trade-image-upload" data-slot="2" accept="image/*">
-                        <div class="status" id="status-2"></div>
+                    <div class="form-group no-trade-group">
+                        <input type="checkbox" class="no-trade-checkbox" id="no-trade-2" data-slot="2">
+                        <label for="no-trade-2">매매 없음</label>
                     </div>
-                    <div class="form-group">
-                        <label>· 진입시간:</label>
-                        <input type="text" id="entry-time-2" placeholder="자동 입력">
-                    </div>
-                     <div class="form-group-inline">
-                        <label>· 진입코인:</label>
-                        <input type="text" id="coin-2" placeholder="자동 입력" style="flex-grow: 2;">
-                        <label>· 포지션:</label>
-                        <select id="position-2" class="position-select">
-                            <option value="">선택</option>
-                            <option value="롱">롱</option>
-                            <option value="숏">숏</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>· 레버리지/비중:</label>
-                        <input type="text" id="leverage-2" placeholder="자동 입력 / 수동 입력">
-                    </div>
-                    <div class="form-group">
-                        <label>· 진입 근거:</label>
-                        <textarea id="entry-reason-2" rows="3">- 볼린저밴드 상태: 
+                    <div class="trade-fields-container" id="trade-fields-2">
+                        <div class="upload-area">
+                            <input type="file" class="trade-image-upload" data-slot="2" accept="image/*">
+                            <div class="status" id="status-2"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>· 진입시간:</label>
+                            <input type="text" id="entry-time-2" placeholder="자동 입력">
+                        </div>
+                         <div class="form-group-inline coin-position-group">
+                            <label>· 진입코인:</label>
+                            <input type="text" id="coin-2" placeholder="자동 입력">
+                            <label>· 포지션:</label>
+                            <select id="position-2" class="position-select">
+                                <option value="">선택</option>
+                                <option value="롱">롱</option>
+                                <option value="숏">숏</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>· 레버리지/비중:</label>
+                            <input type="text" id="leverage-2" placeholder="자동 입력 / 수동 입력">
+                        </div>
+                        <div class="form-group">
+                            <label>· 진입 근거:</label>
+                            <textarea id="entry-reason-2" rows="3">- 볼린저밴드 상태: 
 - RSI 지수: </textarea>
-                    </div>
-                    <div class="form-group-inline">
-                        <label>· 익절(%):</label>
-                        <input type="number" id="tp-2" placeholder="예: 10">
-                        <label>· 손절(%):</label>
-                        <input type="number" id="sl-2" placeholder="예: 5">
-                    </div>
-                    <div class="form-group-inline">
-                        <label>· 결과:</label>
-                        <input type="text" id="pnl-ratio-2" placeholder="%" readonly>
-                        <input type="text" id="realized-pnl-2" placeholder="USDT" readonly>
-                    </div>
-                     <div class="form-group">
-                        <label>· 복기:</label>
-                        <textarea id="review-2" rows="3"></textarea>
+                        </div>
+                        <div class="form-group-inline">
+                            <label>· 익절(%):</label>
+                            <input type="number" id="tp-2" placeholder="예: 10">
+                            <label>· 손절(%):</label>
+                            <input type="number" id="sl-2" placeholder="예: 5">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>· 결과:</label>
+                            <input type="text" id="pnl-ratio-2" placeholder="%" readonly>
+                            <input type="text" id="realized-pnl-2" placeholder="USDT" readonly>
+                        </div>
+                         <div class="form-group">
+                            <label>· 복기:</label>
+                            <textarea id="review-2" rows="3"></textarea>
+                        </div>
                     </div>
                 </section>
 
                 <section class="card trade-log">
                     <h3>✅ 3차 매매</h3>
-                     <div class="upload-area">
-                        <input type="file" class="trade-image-upload" data-slot="3" accept="image/*">
-                        <div class="status" id="status-3"></div>
+                    <div class="form-group no-trade-group">
+                        <input type="checkbox" class="no-trade-checkbox" id="no-trade-3" data-slot="3">
+                        <label for="no-trade-3">매매 없음</label>
                     </div>
-                    <div class="form-group">
-                        <label>· 진입시간:</label>
-                        <input type="text" id="entry-time-3" placeholder="자동 입력">
-                    </div>
-                     <div class="form-group-inline">
-                        <label>· 진입코인:</label>
-                        <input type="text" id="coin-3" placeholder="자동 입력" style="flex-grow: 2;">
-                        <label>· 포지션:</label>
-                        <select id="position-3" class="position-select">
-                            <option value="">선택</option>
-                            <option value="롱">롱</option>
-                            <option value="숏">숏</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>· 레버리지/비중:</label>
-                        <input type="text" id="leverage-3" placeholder="자동 입력 / 수동 입력">
-                    </div>
-                    <div class="form-group">
-                        <label>· 진입 근거:</label>
-                        <textarea id="entry-reason-3" rows="3">- 볼린저밴드 상태: 
+                    <div class="trade-fields-container" id="trade-fields-3">
+                        <div class="upload-area">
+                            <input type="file" class="trade-image-upload" data-slot="3" accept="image/*">
+                            <div class="status" id="status-3"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>· 진입시간:</label>
+                            <input type="text" id="entry-time-3" placeholder="자동 입력">
+                        </div>
+                         <div class="form-group-inline coin-position-group">
+                            <label>· 진입코인:</label>
+                            <input type="text" id="coin-3" placeholder="자동 입력">
+                            <label>· 포지션:</label>
+                            <select id="position-3" class="position-select">
+                                <option value="">선택</option>
+                                <option value="롱">롱</option>
+                                <option value="숏">숏</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>· 레버리지/비중:</label>
+                            <input type="text" id="leverage-3" placeholder="자동 입력">
+                        </div>
+                        <div class="form-group">
+                            <label>· 진입 근거:</label>
+                            <textarea id="entry-reason-3" rows="3">- 볼린저밴드 상태: 
 - RSI 지수: </textarea>
-                    </div>
-                    <div class="form-group-inline">
-                        <label>· 익절(%):</label>
-                        <input type="number" id="tp-3" placeholder="예: 10">
-                        <label>· 손절(%):</label>
-                        <input type="number" id="sl-3" placeholder="예: 5">
-                    </div>
-                    <div class="form-group-inline">
-                        <label>· 결과:</label>
-                        <input type="text" id="pnl-ratio-3" placeholder="%" readonly>
-                        <input type="text" id="realized-pnl-3" placeholder="USDT" readonly>
-                    </div>
-                     <div class="form-group">
-                        <label>· 복기:</label>
-                        <textarea id="review-3" rows="3"></textarea>
+                        </div>
+                        <div class="form-group-inline">
+                            <label>· 익절(%):</label>
+                            <input type="number" id="tp-3" placeholder="예: 10">
+                            <label>· 손절(%):</label>
+                            <input type="number" id="sl-3" placeholder="예: 5">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>· 결과:</label>
+                            <input type="text" id="pnl-ratio-3" placeholder="%" readonly>
+                            <input type="text" id="realized-pnl-3" placeholder="USDT" readonly>
+                        </div>
+                         <div class="form-group">
+                            <label>· 복기:</label>
+                            <textarea id="review-3" rows="3"></textarea>
+                        </div>
                     </div>
                 </section>
             </div>
