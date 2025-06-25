@@ -210,18 +210,18 @@ select.position-select {
     }
     
     /* 폰트 크기 조정 (제목 제외) */
-    .card h2 { font-size: 16px; }
-    .card h3 { font-size: 14px; }
+    .card h2 { font-size: 18px; }
+    .card h3 { font-size: 16px; }
 
     .form-group label, 
     .form-group-inline label,
     .no-trade-group label,
     p {
-        font-size: 10px;
+        font-size: 14px;
     }
 
     input, select, textarea {
-        font-size: 11px;
+        font-size: 15px;
     }
 
     /* '진입코인' 그룹 레이아웃 재정의 */
