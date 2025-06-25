@@ -223,3 +223,28 @@ select.position-select:focus {
     font-weight: 500;
     color: #1a73e8;
 }
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    .coin-position-group {
+        flex-wrap: wrap;
+    }
+
+    .coin-position-group input[type="text"] {
+        width: 100%;
+        flex-basis: 100%;
+        margin-bottom: 15px;
+    }
+}
